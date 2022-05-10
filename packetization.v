@@ -24,9 +24,9 @@ module packetization(
   output [FLIT_WIDTH-1:0] flit;
   
   // counter
-  int clkcount;
+  integer clkcount;
   // state variable
-  int state;
+  integer state;
   
   always @ (posedge clk)
   begin
@@ -61,7 +61,7 @@ module packetization(
           // wait for clock cycle equal 2
           if (clkcount ==2)
           begin
-            state <=3
+            state <=3;
           end 
         end
         3:
@@ -75,6 +75,33 @@ module packetization(
         end 
       endcase
     end 
+  end 
+        
+  // This is the combinational part
+    always @ (negedge clk)
+          begin
+            case (state)
+              0:
+                begin
+                  valid <=0;
+                  flit <=32'dx;
+                end
+              1:
+                begin
+                  valid <=1;
+                  flit <={2'b01,32'd1};
+                end 
+              2:
+                begin
+                  valid <=0;
+                  flit <=32'dx;
+                end 
+              3:
+                begin
+                  valid <=1;
+                  flit <= {2'b10,32'd3};
+                end 
+            endcase
   end 
   
 endmodule
