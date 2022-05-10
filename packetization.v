@@ -31,6 +31,7 @@ module packetization(
   always @ (posedge clk)
   begin
     // increment clock counter every posedge clk
+    clkcount <= clkcount + 1 ;
     if (rst)
     begin
       state <=0;
