@@ -20,8 +20,8 @@ module packetization(
   input rst;
   input ready;
   // output port
-  output valid;
-  output [FLIT_WIDTH-1:0] flit;
+  output reg valid;
+  output reg  [FLIT_WIDTH-1:0] flit;
   
   // counter
   integer clkcount;
@@ -106,3 +106,48 @@ module packetization(
   end 
   
 endmodule
+/*
+// test bench 
+module tb_packetizer(
+
+    );
+    
+  parameter FLIT_DATA_WIDTH = 32;
+  parameter FLIT_TYPE_WIDTH = 2;
+  parameter FLIT_WIDTH = FLIT_DATA_WIDTH + FLIT_TYPE_WIDTH;
+  
+  // input port
+  reg clk;
+  reg rst;
+  reg ready;
+  // output port
+  wire valid;
+  wire [FLIT_WIDTH-1:0] flit;
+   
+     packetization  uut(
+       clk,
+       rst,
+       ready,
+       flit,
+       valid
+       );
+    initial 
+    begin   
+        clk =0;
+        rst =1;
+        ready =0;
+        # 10 
+        rst =0;
+        #100 
+        ready =1;
+        #115 
+        ready =0;
+    end 
+    
+    always 
+    begin
+        #5 clk = ! clk;
+    end 
+
+endmodule
+*/
